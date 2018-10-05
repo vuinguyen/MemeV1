@@ -8,8 +8,13 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextFieldDelegate,
+                      UINavigationControllerDelegate {
 
+  let memeTextAttributes:[String: Any] = [NSAttributedString.Key.strokeColor.rawValue: UIColor.black,
+                                          NSAttributedString.Key.foregroundColor.rawValue: UIColor.white,
+                                          NSAttributedString.Key.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ?? UIFont(name: "Impact", size: 40)!,
+                                          NSAttributedString.Key.strokeWidth.rawValue: 5];
   // MARK: Properties
   @IBOutlet weak var memeImageView: UIImageView!
   @IBOutlet weak var topTextField: UITextField!
@@ -37,11 +42,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
   // MARK: ViewController
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    topTextField.text = "TOP"
+    topTextField.textAlignment = .center
+    // TODO: get the next line working
+    //topTextField.defaultTextAttributes = memeTextAttributes
+    topTextField.delegate = self
+
+    bottomTextField.text = "BOTTOM"
+    bottomTextField.textAlignment = .center
+    // TODO: get the next line working
+    //topTextField.defaultTextAttributes = memeTextAttributes
+    bottomTextField.delegate = self
   }
 
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
     cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+    subscribeToKeyboardNotifications()
+  }
+
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    unsubscribeFromKeyboardNotifications()
   }
 
   // MARK: ImagePickerControllerDelegate
@@ -56,6 +78,54 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
       print("That was the wrong key")
     }
     picker.dismiss(animated: true, completion: nil)
+  }
+
+  //https://developer.apple.com/library/archive/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/ManageTextFieldTextViews/ManageTextFieldTextViews.html
+  //https://stackoverflow.com/questions/30630582/ios-swift-delegate-with-more-than-1-uitextfield-in-a-uiview
+
+  // use tags to identify which textfield you're talking about
+  // MARK: TextFieldDelegate
+  func textFieldDidBeginEditing(_ textField: UITextField) {
+    if textField == topTextField && textField.text == "TOP" {
+        textField.text = ""
+    } else if textField == bottomTextField && textField.text == "BOTTOM" {
+        textField.text = ""
+    }
+  }
+
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    if textField == topTextField || textField == bottomTextField {
+      textField.resignFirstResponder()
+    }
+    return true
+  }
+
+  // MARK: Keyboard Helper Functions
+  // we want to show / hide keyboard only with the bottom text field
+  // should the two textfields have 2 different delegates?
+  @objc func keyboardWillShow(_ notification: Notification) {
+    view.frame.origin.y = -getKeyboardHeight(notification)
+  }
+
+  @objc func keyboardWillHide(_ notification: Notification) {
+    view.frame.origin.y = 0
+  }
+
+  func getKeyboardHeight(_ notification:Notification) -> CGFloat {
+    let userInfo = notification.userInfo
+    let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+    return keyboardSize.cgRectValue.height
+  }
+
+  func subscribeToKeyboardNotifications() {
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+  }
+
+  func unsubscribeFromKeyboardNotifications() {
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
   }
 }
 
