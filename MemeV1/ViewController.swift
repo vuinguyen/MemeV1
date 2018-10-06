@@ -11,10 +11,11 @@ import UIKit
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextFieldDelegate,
                       UINavigationControllerDelegate {
 
-  let memeTextAttributes:[String: Any] = [NSAttributedString.Key.strokeColor.rawValue: UIColor.black,
-                                          NSAttributedString.Key.foregroundColor.rawValue: UIColor.white,
-                                          NSAttributedString.Key.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ?? UIFont(name: "Impact", size: 40)!,
-                                          NSAttributedString.Key.strokeWidth.rawValue: 5];
+  let memeTextAttributes:[NSAttributedString.Key: Any] = [NSAttributedString.Key.strokeColor: UIColor.black,
+                                          NSAttributedString.Key.foregroundColor: UIColor.white,
+                                          NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ?? UIFont(name: "Impact", size: 40)!,
+                                          NSAttributedString.Key.strokeWidth: 5];
+
   // MARK: Properties
   @IBOutlet weak var memeImageView: UIImageView!
   @IBOutlet weak var topTextField: UITextField!
@@ -43,15 +44,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   override func viewDidLoad() {
     super.viewDidLoad()
     topTextField.text = "TOP"
+    topTextField.defaultTextAttributes = memeTextAttributes
     topTextField.textAlignment = .center
-    // TODO: get the next line working
-    //topTextField.defaultTextAttributes = memeTextAttributes
     topTextField.delegate = self
 
     bottomTextField.text = "BOTTOM"
+    bottomTextField.defaultTextAttributes = memeTextAttributes
     bottomTextField.textAlignment = .center
-    // TODO: get the next line working
-    //topTextField.defaultTextAttributes = memeTextAttributes
     bottomTextField.delegate = self
   }
 
@@ -101,10 +100,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   }
 
   // MARK: Keyboard Helper Functions
-  // we want to show / hide keyboard only with the bottom text field
-  // should the two textfields have 2 different delegates?
   @objc func keyboardWillShow(_ notification: Notification) {
-    view.frame.origin.y = -getKeyboardHeight(notification)
+    // ensure that the keyboard moves up ONLY when the bottom text field is being edited
+    if bottomTextField.isEditing {
+      view.frame.origin.y = -getKeyboardHeight(notification)
+    }
   }
 
   @objc func keyboardWillHide(_ notification: Notification) {

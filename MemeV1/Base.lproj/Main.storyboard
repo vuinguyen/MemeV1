@@ -62,7 +62,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jGo-xf-i3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Po-in-2Lu"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="centerX" secondItem="qNs-i4-8yU" secondAttribute="centerX" id="CDl-RN-6ds"/>
@@ -76,9 +76,9 @@
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="25" id="gik-j9-1um"/>
                             <constraint firstItem="LJV-zr-0Zp" firstAttribute="top" secondItem="6Fp-Ir-YyG" secondAttribute="bottom" constant="50" id="kit-PA-xQP"/>
                             <constraint firstItem="LJV-zr-0Zp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lJN-pp-tcc"/>
-                            <constraint firstItem="MJy-jT-2B3" firstAttribute="top" secondItem="6Fp-Ir-YyG" secondAttribute="bottom" constant="10" id="oi2-7R-QZ4"/>
                             <constraint firstItem="qNs-i4-8yU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rCf-ey-7io"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="top" secondItem="qNs-i4-8yU" secondAttribute="bottom" constant="50" id="t4O-4W-sgO"/>
+                            <constraint firstItem="LJV-zr-0Zp" firstAttribute="top" secondItem="MJy-jT-2B3" secondAttribute="bottom" constant="10" id="yzK-S1-IQ7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
