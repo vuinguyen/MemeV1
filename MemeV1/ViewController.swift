@@ -12,9 +12,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
                       UINavigationControllerDelegate {
 
   let memeTextAttributes:[NSAttributedString.Key: Any] = [NSAttributedString.Key.strokeColor: UIColor.black,
-                                          NSAttributedString.Key.foregroundColor: UIColor.white,
-                                          NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ?? UIFont(name: "Impact", size: 40)!,
-                                          NSAttributedString.Key.strokeWidth: -2.0];
+                                                          NSAttributedString.Key.foregroundColor: UIColor.white,
+                                                          NSAttributedString.Key.font:
+                                                            UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ??
+                                                              UIFont(name: "Impact", size: 40)!,
+                                                          NSAttributedString.Key.strokeWidth: -2.0];
   let topFieldDefaultText = "TOP"
   let bottomFieldDefaultText = "BOTTOM"
   var memedImage: UIImage?
@@ -47,16 +49,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   }
 
   @IBAction func pickImageFromCamera(_ sender: Any) {
-    let imagePickerController = UIImagePickerController()
-    imagePickerController.delegate = self
-    imagePickerController.sourceType = .camera
-    present(imagePickerController, animated: true, completion: nil)
+    pickImage(isSourceAlbum: false)
   }
 
   @IBAction func pickImageFromAlbum(_ sender: Any) {
+    pickImage(isSourceAlbum: true)
+  }
+
+  private func pickImage(isSourceAlbum: Bool) {
     let imagePickerController = UIImagePickerController()
     imagePickerController.delegate = self
-    imagePickerController.sourceType = .photoLibrary
+    imagePickerController.sourceType = isSourceAlbum ? .photoLibrary : .camera
     present(imagePickerController, animated: true, completion: nil)
   }
 
