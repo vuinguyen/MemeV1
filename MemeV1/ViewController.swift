@@ -19,6 +19,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
                                                           NSAttributedString.Key.strokeWidth: -2.0];
   let topFieldDefaultText = "TOP"
   let bottomFieldDefaultText = "BOTTOM"
+
+  // meme image that will be created with image and text fields
   var memedImage: UIImage?
 
   // MARK: Properties
@@ -31,11 +33,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   @IBOutlet weak var navBar: UIToolbar!
   
   // MARK: Actions
+  // cancel sharing of meme and set everything back to the default
   @IBAction func cancelMeme(_ sender: Any) {
-    topTextField.text = topFieldDefaultText
-    bottomTextField.text = bottomFieldDefaultText
-    memeImageView.image = nil
-    shareButton.isEnabled = false
+    setToDefault()
   }
 
   @IBAction func shareMeme(_ sender: Any) {
@@ -56,33 +56,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
     pickImage(isSourceAlbum: true)
   }
 
-  private func pickImage(isSourceAlbum: Bool) {
-    let imagePickerController = UIImagePickerController()
-    imagePickerController.delegate = self
-    imagePickerController.sourceType = isSourceAlbum ? .photoLibrary : .camera
-    present(imagePickerController, animated: true, completion: nil)
-  }
-
   // MARK: ViewController
   override func viewDidLoad() {
     super.viewDidLoad()
-    topTextField.text = topFieldDefaultText
-    topTextField.backgroundColor = UIColor.clear
-    topTextField.borderStyle = .none
-    topTextField.defaultTextAttributes = memeTextAttributes
-    topTextField.textAlignment = .center
-    topTextField.delegate = self
-
-    bottomTextField.text = bottomFieldDefaultText
-    bottomTextField.backgroundColor = UIColor.clear
-    bottomTextField.borderStyle = .none
-    bottomTextField.defaultTextAttributes = memeTextAttributes
-    bottomTextField.textAlignment = .center
-    bottomTextField.delegate = self
-
-    if memeImageView.image == nil {
-      shareButton.isEnabled = false
-    }
+    setTextFieldAttributes(textField: topTextField)
+    setTextFieldAttributes(textField: bottomTextField)
+    setToDefault()
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -96,34 +75,62 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
     unsubscribeFromKeyboardNotifications()
   }
 
+  // MARK: ViewController Helper Functions
+  func setToDefault() {
+    topTextField.text = topFieldDefaultText
+    bottomTextField.text = bottomFieldDefaultText
+    memeImageView.image = nil
+    shareButton.isEnabled = false
+  }
+
+  func pickImage(isSourceAlbum: Bool) {
+    let imagePickerController = UIImagePickerController()
+    imagePickerController.delegate = self
+    imagePickerController.sourceType = isSourceAlbum ? .photoLibrary : .camera
+    present(imagePickerController, animated: true, completion: nil)
+  }
+
+  func setTextFieldAttributes(textField: UITextField) {
+    textField.backgroundColor = UIColor.clear
+    textField.borderStyle = .none
+    textField.defaultTextAttributes = memeTextAttributes
+    textField.textAlignment = .center
+    textField.delegate = self
+  }
+
   // MARK: ImagePickerControllerDelegate
   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
     picker.dismiss(animated: true, completion: nil)
   }
 
-  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+  func imagePickerController(_ picker: UIImagePickerController,
+                             didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+
     if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
       memeImageView.image = image
       shareButton.isEnabled = true
     } else {
-      print("That was the wrong key")
+      let alert = UIAlertController(title: "Picture Selection Error", message: "Failed To Select Picture",
+                                    preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"),
+                                    style: .default, handler: { _ in
+        print("There was an error in selecting a picture")
+      }))
+      self.present(alert, animated: true, completion: nil)
     }
+
     picker.dismiss(animated: true, completion: nil)
   }
 
   // MARK: TextFieldDelegate
   func textFieldDidBeginEditing(_ textField: UITextField) {
-    if textField == topTextField && textField.text == topFieldDefaultText {
-        textField.text = ""
-    } else if textField == bottomTextField && textField.text == bottomFieldDefaultText {
-        textField.text = ""
+    if textField.text == topFieldDefaultText || textField.text == bottomFieldDefaultText {
+      textField.text = ""
     }
   }
 
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    if textField == topTextField || textField == bottomTextField {
-      textField.resignFirstResponder()
-    }
+    textField.resignFirstResponder()
     return true
   }
 
@@ -146,9 +153,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   }
 
   func subscribeToKeyboardNotifications() {
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)),
+                                           name: UIResponder.keyboardWillShowNotification, object: nil)
 
-    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)),
+                                           name: UIResponder.keyboardWillHideNotification, object: nil)
   }
 
   func unsubscribeFromKeyboardNotifications() {
@@ -162,7 +171,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
     self.bottomToolbar.isHidden = true
     self.navBar.isHidden = true
 
-    // Render view to an image
+    // render view to an image
     UIGraphicsBeginImageContext(self.view.frame.size)
     view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
     let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
@@ -177,7 +186,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   }
 
   func save() {
-    let meme = Meme(topText: topTextField.text ?? topFieldDefaultText, bottomText: bottomTextField.text ?? bottomFieldDefaultText, originalImage: memeImageView.image, memedImage: memedImage)
+    _ = Meme(topText: topTextField.text ?? topFieldDefaultText,
+             bottomText: bottomTextField.text ?? bottomFieldDefaultText,
+             originalImage: memeImageView.image, memedImage: memedImage)
   }
 }
 
