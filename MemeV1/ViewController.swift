@@ -65,12 +65,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
     super.viewDidLoad()
     topTextField.text = topFieldDefaultText
     topTextField.backgroundColor = UIColor.clear
+    topTextField.borderStyle = .none
     topTextField.defaultTextAttributes = memeTextAttributes
     topTextField.textAlignment = .center
     topTextField.delegate = self
 
     bottomTextField.text = bottomFieldDefaultText
     bottomTextField.backgroundColor = UIColor.clear
+    bottomTextField.borderStyle = .none
     bottomTextField.defaultTextAttributes = memeTextAttributes
     bottomTextField.textAlignment = .center
     bottomTextField.delegate = self
@@ -106,10 +108,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
     picker.dismiss(animated: true, completion: nil)
   }
 
-  //https://developer.apple.com/library/archive/documentation/StringsTextFonts/Conceptual/TextAndWebiPhoneOS/ManageTextFieldTextViews/ManageTextFieldTextViews.html
-  //https://stackoverflow.com/questions/30630582/ios-swift-delegate-with-more-than-1-uitextfield-in-a-uiview
-
-  // use tags to identify which textfield you're talking about
   // MARK: TextFieldDelegate
   func textFieldDidBeginEditing(_ textField: UITextField) {
     if textField == topTextField && textField.text == topFieldDefaultText {
@@ -155,7 +153,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
     NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
   }
 
-  // MARK: helper meme generating functions
+  // MARK: Meme Generating Helper Functions
   func generateMemedImage() -> UIImage {
     // hide toolbar and navbar
     self.bottomToolbar.isHidden = true

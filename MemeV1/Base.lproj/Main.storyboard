@@ -66,7 +66,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jGo-xf-i3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Po-in-2Lu"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="centerX" secondItem="qNs-i4-8yU" secondAttribute="centerX" id="CDl-RN-6ds"/>
