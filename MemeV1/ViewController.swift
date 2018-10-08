@@ -14,7 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   let memeTextAttributes:[NSAttributedString.Key: Any] = [NSAttributedString.Key.strokeColor: UIColor.black,
                                           NSAttributedString.Key.foregroundColor: UIColor.white,
                                           NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ?? UIFont(name: "Impact", size: 40)!,
-                                          NSAttributedString.Key.strokeWidth: 5];
+                                          NSAttributedString.Key.strokeWidth: -2.0];
   let topFieldDefaultText = "TOP"
   let bottomFieldDefaultText = "BOTTOM"
   var memedImage: UIImage?
@@ -64,18 +64,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
   override func viewDidLoad() {
     super.viewDidLoad()
     topTextField.text = topFieldDefaultText
+    topTextField.backgroundColor = UIColor.clear
     topTextField.defaultTextAttributes = memeTextAttributes
     topTextField.textAlignment = .center
     topTextField.delegate = self
 
     bottomTextField.text = bottomFieldDefaultText
-    // TODO: why can't I make the background color clear without making
-    // everything invisible?
-    //bottomTextField.backgroundColor = UIColor.clear
+    bottomTextField.backgroundColor = UIColor.clear
     bottomTextField.defaultTextAttributes = memeTextAttributes
-    //bottomTextField.tintColor = UIColor.clear // this doesn't do anything
     bottomTextField.textAlignment = .center
-    //bottomTextField.textColor = UIColor.white
     bottomTextField.delegate = self
 
     if memeImageView.image == nil {
