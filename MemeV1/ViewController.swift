@@ -16,7 +16,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
                                                           NSAttributedString.Key.font:
                                                             UIFont(name: "HelveticaNeue-CondensedBlack", size: 40) ??
                                                               UIFont(name: "Impact", size: 40)!,
-                                                          NSAttributedString.Key.strokeWidth: -2.0];
+                                                          NSAttributedString.Key.strokeWidth: -4.0];
   let topFieldDefaultText = "TOP"
   let bottomFieldDefaultText = "BOTTOM"
 
