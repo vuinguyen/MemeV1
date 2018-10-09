@@ -60,13 +60,13 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJy-jT-2B3">
-                                <rect key="frame" x="147" y="558" width="81" height="30"/>
+                                <rect key="frame" x="8" y="583" width="359" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jGo-xf-i3T">
-                                <rect key="frame" x="163" y="99" width="49" height="30"/>
+                                <rect key="frame" x="8" y="74" width="359" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
@@ -77,18 +77,22 @@
                             <constraint firstItem="jGo-xf-i3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="0Po-in-2Lu"/>
                             <constraint firstItem="jGo-xf-i3T" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="63g-ct-qgP"/>
                             <constraint firstItem="MJy-jT-2B3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6Iw-Xp-iC9"/>
-                            <constraint firstItem="jGo-xf-i3T" firstAttribute="top" secondItem="qNs-i4-8yU" secondAttribute="bottom" constant="35" id="8GX-JV-z60"/>
+                            <constraint firstItem="jGo-xf-i3T" firstAttribute="top" secondItem="qNs-i4-8yU" secondAttribute="bottom" constant="10" id="8GX-JV-z60"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="centerX" secondItem="qNs-i4-8yU" secondAttribute="centerX" id="CDl-RN-6ds"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="top" secondItem="qNs-i4-8yU" secondAttribute="bottom" id="Flr-hy-ABd"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="I5m-4E-MNx"/>
                             <constraint firstItem="6Fp-Ir-YyG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="I6I-dR-zvL"/>
-                            <constraint firstItem="6Fp-Ir-YyG" firstAttribute="bottom" secondItem="MJy-jT-2B3" secondAttribute="bottom" constant="35" id="Lus-tU-PTX"/>
+                            <constraint firstItem="6Fp-Ir-YyG" firstAttribute="bottom" secondItem="MJy-jT-2B3" secondAttribute="bottom" constant="10" id="Lus-tU-PTX"/>
                             <constraint firstItem="LJV-zr-0Zp" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NaN-X9-Emd"/>
+                            <constraint firstItem="MJy-jT-2B3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="QbS-4Q-9xP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jGo-xf-i3T" secondAttribute="trailing" constant="8" id="TGB-hd-F5h"/>
                             <constraint firstItem="MJy-jT-2B3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="VF4-L5-7xh"/>
                             <constraint firstItem="LJV-zr-0Zp" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="W1a-rd-q5b"/>
                             <constraint firstItem="qNs-i4-8yU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="bBW-k2-6jb"/>
                             <constraint firstItem="qNs-i4-8yU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cwT-5i-8C1"/>
                             <constraint firstItem="LJV-zr-0Zp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="lJN-pp-tcc"/>
+                            <constraint firstItem="jGo-xf-i3T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="oI8-Kb-QJi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MJy-jT-2B3" secondAttribute="trailing" constant="8" id="pp8-oq-WpU"/>
                             <constraint firstItem="qNs-i4-8yU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rCf-ey-7io"/>
                             <constraint firstItem="LJV-zr-0Zp" firstAttribute="top" secondItem="6Fp-Ir-YyG" secondAttribute="bottom" id="yzK-S1-IQ7"/>
                         </constraints>
