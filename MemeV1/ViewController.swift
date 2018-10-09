@@ -44,8 +44,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UITextF
 
     // share it out
     // and then save it! (to Meme struct)
-    let controller = UIActivityViewController(activityItems: [generatedImage], applicationActivities: nil)
-    self.present(controller, animated: true, completion: save)
+    let activityController = UIActivityViewController(activityItems: [generatedImage], applicationActivities: nil)
+
+    // save to Meme object only if the share was successful
+    activityController.completionWithItemsHandler = { activity, success, items, error in
+      if success {
+        self.save()
+        self.dismiss(animated: true, completion: nil)
+      }
+    }
+    self.present(activityController, animated: true, completion: nil)
   }
 
   @IBAction func pickImageFromCamera(_ sender: Any) {
